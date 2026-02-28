@@ -19,7 +19,6 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -30,7 +29,6 @@
       overflow-x: hidden;
     }
 
-    /* Grid background */
     body::before {
       content: '';
       position: fixed;
@@ -43,26 +41,11 @@
       z-index: 0;
     }
 
-    /* Glow orbs */
-    .orb {
-      position: fixed;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .orb-1 {
-      width: 500px; height: 500px;
-      background: radial-gradient(circle, rgba(0,229,160,0.12), transparent 70%);
-      top: -100px; left: -100px;
-    }
-    .orb-2 {
-      width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(0,170,255,0.10), transparent 70%);
-      bottom: 100px; right: -80px;
-    }
+    .orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+    .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,229,160,0.12), transparent 70%); top: -100px; left: -100px; }
+    .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(0,170,255,0.10), transparent 70%); bottom: 100px; right: -80px; }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -70,31 +53,37 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2rem 3rem;
-      background: rgba(10,12,16,0.85);
+      padding: 0.9rem 3rem;
+      background: rgba(10,12,16,0.90);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
-    .logo {
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      height: 36px;
+      width: auto;
+      object-fit: contain;
+    }
+    .logo-text {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 700;
       color: var(--accent);
       letter-spacing: 0.05em;
-      text-decoration: none;
     }
-    .logo span { color: var(--text-dim); }
+    .logo-text span { color: var(--text-dim); }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2.5rem;
-    }
+    nav ul { list-style: none; display: flex; gap: 2rem; align-items: center; }
     nav ul a {
       color: var(--text-dim);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -102,22 +91,7 @@
     }
     nav ul a:hover { color: var(--accent); }
 
-    .nav-cta {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--accent) !important;
-      border: 1px solid var(--accent);
-      padding: 0.45rem 1rem;
-      border-radius: 4px;
-      transition: background 0.2s, color 0.2s !important;
-    }
-    .nav-cta:hover {
-      background: var(--accent) !important;
-      color: var(--bg) !important;
-    }
-
-    /* ── HERO ── */
+    /* HERO */
     .hero {
       position: relative;
       z-index: 1;
@@ -127,7 +101,17 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 6rem 2rem 4rem;
+      padding: 7rem 2rem 4rem;
+    }
+
+    .hero-logo {
+      margin-bottom: 2rem;
+      animation: fadeUp 0.5s ease both;
+    }
+    .hero-logo img {
+      height: 90px;
+      width: auto;
+      object-fit: contain;
     }
 
     .hero-badge {
@@ -144,7 +128,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      animation: fadeUp 0.6s ease both;
+      animation: fadeUp 0.6s 0.05s ease both;
     }
     .hero-badge::before {
       content: '';
@@ -154,10 +138,7 @@
       animation: pulse 2s infinite;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
     h1 {
       font-size: clamp(3rem, 8vw, 6.5rem);
@@ -167,7 +148,6 @@
       margin-bottom: 1.5rem;
       animation: fadeUp 0.7s 0.1s ease both;
     }
-
     h1 .accent { color: var(--accent); }
     h1 .dim { color: var(--muted); }
 
@@ -202,10 +182,7 @@
       transition: transform 0.2s, box-shadow 0.2s;
       box-shadow: 0 0 30px rgba(0,229,160,0.3);
     }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 50px rgba(0,229,160,0.5);
-    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,229,160,0.5); }
 
     .btn-ghost {
       background: transparent;
@@ -220,10 +197,7 @@
       text-decoration: none;
       transition: border-color 0.2s, color 0.2s;
     }
-    .btn-ghost:hover {
-      border-color: var(--text-dim);
-      color: var(--text);
-    }
+    .btn-ghost:hover { border-color: var(--text-dim); color: var(--text); }
 
     .scroll-indicator {
       position: absolute;
@@ -242,8 +216,7 @@
       animation: fadeUp 1s 0.8s ease both;
     }
     .scroll-line {
-      width: 1px;
-      height: 50px;
+      width: 1px; height: 50px;
       background: linear-gradient(to bottom, var(--accent), transparent);
       animation: scrollDown 2s infinite;
     }
@@ -260,7 +233,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── SECTION COMMON ── */
+    /* SECTION COMMON */
     section {
       position: relative;
       z-index: 1;
@@ -294,7 +267,7 @@
       margin-bottom: 3.5rem;
     }
 
-    /* ── SCRIPTS GRID ── */
+    /* SCRIPTS GRID */
     .scripts-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -309,8 +282,6 @@
       position: relative;
       overflow: hidden;
       transition: border-color 0.3s, transform 0.3s;
-      cursor: pointer;
-      text-decoration: none;
       color: inherit;
       display: block;
     }
@@ -322,10 +293,7 @@
       opacity: 0;
       transition: opacity 0.3s;
     }
-    .script-card:hover {
-      border-color: rgba(0,229,160,0.4);
-      transform: translateY(-4px);
-    }
+    .script-card:hover { border-color: rgba(0,229,160,0.4); transform: translateY(-4px); }
     .script-card:hover::before { opacity: 1; }
 
     .card-tag {
@@ -363,6 +331,7 @@
       align-items: center;
       gap: 1rem;
       flex-wrap: wrap;
+      margin-bottom: 1.25rem;
     }
 
     .card-lang {
@@ -374,73 +343,100 @@
       color: var(--text-dim);
     }
 
-    .lang-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #5f79dd;
-      flex-shrink: 0;
-    }
+    .lang-dot { width: 8px; height: 8px; border-radius: 50%; background: #5f79dd; flex-shrink: 0; }
     .lang-dot.powershell { background: #012456; border: 2px solid #5f79dd; }
 
-    .card-link {
-      margin-left: auto;
+    /* Inline script viewer */
+    .script-toggle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: rgba(0,229,160,0.08);
+      border: 1px solid rgba(0,229,160,0.25);
+      border-radius: 4px;
+      padding: 0.4rem 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      position: relative;
+      z-index: 2;
+    }
+    .script-toggle:hover { background: rgba(0,229,160,0.15); border-color: rgba(0,229,160,0.5); }
+
+    .copy-btn {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.72rem;
-      color: var(--accent);
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      transition: gap 0.2s;
-    }
-    .script-card:hover .card-link { gap: 0.5rem; }
-
-    /* ── ABOUT ── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-
-    @media (max-width: 700px) {
-      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    }
-
-    .about-terminal {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .terminal-bar {
+      color: var(--text-dim);
       background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.35rem 0.75rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+      margin-left: auto;
+    }
+    .copy-btn:hover { color: var(--accent); border-color: rgba(0,229,160,0.4); }
+    .copy-btn.copied { color: var(--accent); }
+
+    .script-viewer { display: none; margin-top: 1.25rem; position: relative; z-index: 2; }
+    .script-viewer.open { display: block; }
+
+    .script-viewer-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-bottom: none;
+      border-radius: 8px 8px 0 0;
+      padding: 0.6rem 1rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      justify-content: space-between;
     }
-    .terminal-dot {
-      width: 10px; height: 10px;
-      border-radius: 50%;
+    .script-viewer-filename { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--muted); }
+
+    .script-viewer pre {
+      background: #0d0f14;
+      border: 1px solid var(--border);
+      border-radius: 0 0 8px 8px;
+      padding: 1.25rem;
+      overflow-x: auto;
+      max-height: 380px;
+      overflow-y: auto;
     }
+    .script-viewer pre::-webkit-scrollbar { width: 6px; height: 6px; }
+    .script-viewer pre::-webkit-scrollbar-track { background: transparent; }
+    .script-viewer pre::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    .script-viewer code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      line-height: 1.75;
+      color: var(--text-dim);
+      white-space: pre;
+    }
+
+    .ps-comment { color: #5c6370; font-style: italic; }
+    .ps-keyword { color: #c678dd; }
+    .ps-string  { color: #98c379; }
+    .ps-param   { color: #e5c07b; }
+    .ps-cmdlet  { color: #61afef; }
+    .ps-var     { color: #e06c75; }
+    .ps-number  { color: #d19a66; }
+    .ps-type    { color: #56b6c2; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+    .about-terminal { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .terminal-bar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
     .td-red { background: #ff5f57; }
     .td-yellow { background: #ffbd2e; }
     .td-green { background: #28ca41; }
-    .terminal-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.7rem;
-      color: var(--muted);
-      margin-left: 0.5rem;
-    }
-
-    .terminal-body {
-      padding: 1.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      line-height: 1.9;
-    }
+    .terminal-title { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-left: 0.5rem; }
+    .terminal-body { padding: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; line-height: 1.9; }
     .t-prompt { color: var(--accent); }
     .t-cmd { color: var(--text); }
     .t-out { color: var(--text-dim); }
@@ -448,90 +444,28 @@
     .t-string { color: #f6c177; }
     .t-comment { color: var(--muted); }
 
-    .about-text p {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      line-height: 1.9;
-      margin-bottom: 1.5rem;
-    }
+    .about-text p { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-dim); line-height: 1.9; margin-bottom: 1.5rem; }
+    .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+    .stat { text-align: center; background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; }
+    .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--accent); letter-spacing: -0.03em; }
+    .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
 
-    .about-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    .stat {
-      text-align: center;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 1rem;
-    }
-    .stat-num {
-      font-size: 1.8rem;
-      font-weight: 800;
-      color: var(--accent);
-      letter-spacing: -0.03em;
-    }
-    .stat-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 0.25rem;
-    }
-
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer {
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
       border-top: 1px solid var(--border);
       padding: 2.5rem 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
     }
-
-    .footer-brand {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      color: var(--accent);
-      font-weight: 700;
-    }
-    .footer-copy {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-    .footer-links {
-      display: flex;
-      gap: 1.5rem;
-    }
-    .footer-links a {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--text-dim);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
+    .footer-brand { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent); font-weight: 700; }
+    .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: var(--accent); }
 
-    /* ── DIVIDER ── */
-    .full-divider {
-      width: 100%;
-      height: 1px;
-      background: var(--border);
-      position: relative;
-      z-index: 1;
-    }
+    .full-divider { width: 100%; height: 1px; background: var(--border); position: relative; z-index: 1; }
 
-    /* ── RESPONSIVE NAV ── */
     @media (max-width: 640px) {
       nav { padding: 1rem 1.5rem; }
       nav ul { display: none; }
@@ -546,16 +480,22 @@
 
   <!-- NAV -->
   <nav>
-    <a class="logo" href="#"><span>></span> ehlo<span>.co.in</span></a>
+    <a class="nav-logo" href="#">
+      <img src="images/ehlo-logo.png" alt="Ehlo logo" />
+      <span class="logo-text"><span>></span> ehlo<span>.co.in</span></span>
+    </a>
     <ul>
       <li><a href="#scripts">Scripts</a></li>
       <li><a href="#about">About</a></li>
-      <li><a href="https://github.com/hi2piyush" target="_blank" class="nav-cta">GitHub ↗</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <div class="hero">
+    <div class="hero-logo">
+      <img src="images/ehlo-logo.png" alt="Ehlo" />
+    </div>
     <div class="hero-badge">Open Source Tools</div>
     <h1>
       Scripts &amp;<br>
@@ -566,8 +506,7 @@
     </p>
     <div class="hero-actions">
       <a href="#scripts" class="btn-primary">Browse Scripts</a>
-      <a href="https://github.com/hi2piyush" target="_blank" class="btn-ghost">View on GitHub</a>
-    </div>
+      <a href="#about" class="btn-ghost">About the Project</a>
     </div>
     <div class="scroll-indicator">
       <div class="scroll-line"></div>
@@ -581,35 +520,42 @@
   <section id="scripts">
     <div class="section-label">// repositories</div>
     <h2 class="section-title">Available Scripts</h2>
-    <p class="section-desc">Open-source tools built for real-world IT administration. Click any card to view on GitHub.</p>
+    <p class="section-desc">Open-source tools built for real-world IT administration. Expand any card to view the script directly.</p>
 
     <div class="scripts-grid">
 
       <!-- Script Card 1 -->
-      <a class="script-card" href="https://github.com/hi2piyush/Find-Automapping-M365" target="_blank">
+      <div class="script-card">
         <div class="card-tag">PowerShell</div>
         <div class="card-title">Find-Automapping-M365</div>
         <div class="card-desc">
-          Detect and report mailbox auto-mapping configurations across your Microsoft 365 tenant. Useful for Exchange Online admins managing shared mailbox access and Outlook automapping settings.
+          Instantly identify which accounts have auto-mapping enabled on a shared mailbox by reading the <code style="color:var(--accent2); font-size:0.75rem;">DelegateListLink</code> attribute directly from the domain controller — no iteration required.
         </div>
         <div class="card-meta">
           <div class="card-lang">
             <div class="lang-dot powershell"></div>
             PowerShell
           </div>
-          <div class="card-link">View on GitHub →</div>
+          <button class="script-toggle" onclick="toggleScript(this)">
+            <span class="toggle-icon">&#9654;</span> View Script
+          </button>
         </div>
-      </a>
+        <div class="script-viewer">
+          <div class="script-viewer-bar">
+            <span class="script-viewer-filename">Find-Automapping-M365.ps1</span>
+            <button class="copy-btn" onclick="copyScript(this, 'code-1')">Copy</button>
+          </div>
+          <pre><code id="code-1">(<span class="ps-cmdlet">Get-MailboxPermission</span> <span class="ps-string">"SharedMailbox"</span> -ReadFromDomainController)[<span class="ps-number">0</span>].DelegateListLink
+<span class="ps-comment">#Above will give Output as only the accounts which are automapped</span></code></pre>
+        </div>
+      </div>
 
-      <!-- Placeholder card — style hint for future repos -->
+      <!-- Placeholder card -->
       <div class="script-card" style="opacity:0.4; cursor: default;">
         <div class="card-tag" style="background:rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: var(--muted);">Coming Soon</div>
         <div class="card-title" style="color: var(--muted);">More Scripts on the Way</div>
         <div class="card-desc">
-          Follow on GitHub to get notified when new scripts are published. Contributions and issue reports are welcome.
-        </div>
-        <div class="card-meta">
-          <div class="card-link" style="color: var(--muted);">Watch on GitHub →</div>
+          New scripts are actively being developed. Check back soon for new tools and automation scripts.
         </div>
       </div>
 
@@ -630,13 +576,10 @@
         </div>
         <div class="terminal-body">
           <div><span class="t-prompt">PS&gt;</span> <span class="t-cmd">$profile</span></div>
-          <div class="t-out">
-            <span class="t-val">ehlo.co.in</span>
-          </div>
+          <div class="t-out"><span class="t-val">ehlo.co.in</span></div>
           <br>
-          <div class="t-prompt">PS&gt;</span> <span class="t-cmd">Get-Author</span></div>
+          <div><span class="t-prompt">PS&gt;</span> <span class="t-cmd">Get-Author</span></div>
           <div class="t-out">
-            GitHub  : <span class="t-val">github.com/hi2piyush</span><br>
             Focus   : <span class="t-string">M365 &amp; Exchange Online</span><br>
             Domain  : <span class="t-val">ehlo.co.in</span>
           </div>
@@ -656,22 +599,25 @@
         <p>
           Every script here solves a real problem, is free to use, and is published with clear documentation. The goal: save fellow admins hours of troubleshooting.
         </p>
-
         <div class="about-stats">
-          <div class="stat">
-            <div class="stat-num">1+</div>
-            <div class="stat-label">Repos</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">M365</div>
-            <div class="stat-label">Focus</div>
-          </div>
-          <div class="stat">
-            <div class="stat-num">Free</div>
-            <div class="stat-label">Always</div>
-          </div>
+          <div class="stat"><div class="stat-num">1+</div><div class="stat-label">Repos</div></div>
+          <div class="stat"><div class="stat-num">M365</div><div class="stat-label">Focus</div></div>
+          <div class="stat"><div class="stat-num">Free</div><div class="stat-label">Always</div></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <div class="full-divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">// contact</div>
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="section-desc">Found a bug, have a suggestion, or want to contribute? Reach out directly.</p>
+    <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="mailto:admin@ehlo.co.in" class="btn-primary" style="font-size:0.82rem;">admin@ehlo.co.in</a>
+      <a href="#scripts" class="btn-ghost">Browse Scripts</a>
     </div>
   </section>
 
@@ -680,11 +626,32 @@
     <div class="footer-brand">ehlo.co.in</div>
     <div class="footer-copy">© 2025 ehlo.co.in. Open source, always.</div>
     <div class="footer-links">
-      <a href="https://github.com/hi2piyush" target="_blank">GitHub</a>
       <a href="#scripts">Scripts</a>
       <a href="#about">About</a>
+      <a href="#contact">Contact</a>
     </div>
   </footer>
+
+  <script>
+    function toggleScript(btn) {
+      const card = btn.closest('.script-card');
+      const viewer = card.querySelector('.script-viewer');
+      const icon = btn.querySelector('.toggle-icon');
+      const isOpen = viewer.classList.toggle('open');
+      icon.innerHTML = isOpen ? '&#9660;' : '&#9654;';
+      btn.childNodes[1].textContent = isOpen ? ' Hide Script' : ' View Script';
+    }
+
+    function copyScript(btn, codeId) {
+      const code = document.getElementById(codeId);
+      const text = code.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
 
 </body>
 </html>
