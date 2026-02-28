@@ -471,6 +471,37 @@
       nav ul { display: none; }
       footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
     }
+    /* VISIT COUNTER */
+    .visit-counter-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.45rem 1rem;
+      background: rgba(10,12,16,0.92);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+    }
+    .visit-counter-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .visit-counter-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      min-width: 4ch;
+    }
+    /* push footer up so counter bar doesn't overlap */
+    footer { margin-bottom: 2.2rem; }
   </style>
 </head>
 <body>
@@ -621,6 +652,12 @@
     </div>
   </section>
 
+  <!-- VISIT COUNTER -->
+  <div class="visit-counter-bar">
+    <span class="visit-counter-label">// site visits</span>
+    <span class="visit-counter-value" id="visit-count">—</span>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <div class="footer-brand">ehlo.co.in</div>
@@ -651,6 +688,40 @@
         setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
       });
     }
+
+    // ── Visit Counter ────────────────────────────────────────────────────────
+    (async () => {
+      const el = document.getElementById('visit-count');
+      const KEY = 'ehlo-visit-count';
+      try {
+        // Get current count
+        let count = 0;
+        try {
+          const result = await window.storage.get(KEY, true);
+          count = parseInt(result.value, 10) || 0;
+        } catch (_) {
+          count = 0;
+        }
+        // Increment and save
+        count += 1;
+        await window.storage.set(KEY, String(count), true);
+        // Animate the number counting up
+        const duration = 1200;
+        const start = performance.now();
+        const from = Math.max(0, count - Math.min(count, 40));
+        const animate = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(from + (count - from) * eased);
+          el.textContent = current.toLocaleString();
+          if (progress < 1) requestAnimationFrame(animate);
+          else el.textContent = count.toLocaleString();
+        };
+        requestAnimationFrame(animate);
+      } catch (err) {
+        el.textContent = '—';
+      }
+    })();
   </script>
 
 </body>
