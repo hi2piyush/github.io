@@ -450,6 +450,12 @@
     .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--accent); letter-spacing: -0.03em; }
     .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
 
+    .contact-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
     /* FOOTER */
     footer {
       position: relative; z-index: 1;
@@ -466,10 +472,188 @@
 
     .full-divider { width: 100%; height: 1px; background: var(--border); position: relative; z-index: 1; }
 
-    @media (max-width: 640px) {
-      nav { padding: 1rem 1.5rem; }
-      nav ul { display: none; }
-      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    /* ============================================
+       MOBILE OPTIMIZATIONS
+       ============================================ */
+
+    @media (max-width: 768px) {
+      /* Nav */
+      nav {
+        padding: 0.75rem 1.25rem;
+      }
+      nav ul {
+        display: none;
+      }
+      .nav-logo img {
+        height: 28px;
+      }
+      .logo-text {
+        font-size: 0.88rem;
+      }
+
+      /* Orbs - smaller on mobile to avoid overflow */
+      .orb-1 { width: 280px; height: 280px; top: -60px; left: -80px; }
+      .orb-2 { width: 220px; height: 220px; bottom: 60px; right: -60px; }
+
+      /* Hero */
+      .hero {
+        padding: 5.5rem 1.25rem 3.5rem;
+        min-height: 100svh;
+      }
+      .hero-logo img {
+        height: 64px;
+      }
+      .hero-badge {
+        font-size: 0.65rem;
+        padding: 0.35rem 0.8rem;
+        letter-spacing: 0.12em;
+      }
+      h1 {
+        font-size: clamp(2.4rem, 11vw, 4rem);
+        line-height: 1;
+        margin-bottom: 1.25rem;
+      }
+      .hero-sub {
+        font-size: 0.8rem;
+        margin-bottom: 2rem;
+        padding: 0 0.25rem;
+      }
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        max-width: 320px;
+        gap: 0.75rem;
+      }
+      .btn-primary,
+      .btn-ghost {
+        text-align: center;
+        width: 100%;
+        padding: 0.85rem 1.5rem;
+      }
+      .scroll-indicator {
+        display: none; /* hide on mobile — not enough room */
+      }
+
+      /* Sections */
+      section {
+        padding: 3.5rem 1.25rem;
+      }
+      .section-title {
+        font-size: clamp(1.6rem, 7vw, 2.2rem);
+      }
+      .section-desc {
+        font-size: 0.8rem;
+        margin-bottom: 2rem;
+      }
+
+      /* Scripts grid — single column */
+      .scripts-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .script-card {
+        padding: 1.4rem;
+      }
+      .card-title {
+        font-size: 1.05rem;
+        word-break: break-word;
+      }
+      .card-desc {
+        font-size: 0.75rem;
+      }
+      .card-meta {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+      }
+
+      /* Script viewer — handle long code lines */
+      .script-viewer pre {
+        padding: 1rem 0.85rem;
+        font-size: 0.68rem;
+        max-height: 260px;
+      }
+      .script-viewer code {
+        font-size: 0.68rem;
+        white-space: pre;
+      }
+      .script-viewer-bar {
+        padding: 0.5rem 0.75rem;
+      }
+      .script-viewer-filename {
+        font-size: 0.62rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 60%;
+      }
+
+      /* About grid — stack on mobile */
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .terminal-body {
+        padding: 1rem;
+        font-size: 0.72rem;
+        overflow-x: auto;
+      }
+      .about-text p {
+        font-size: 0.78rem;
+      }
+      .about-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.6rem;
+        margin-top: 1.5rem;
+      }
+      .stat {
+        padding: 0.75rem 0.5rem;
+      }
+      .stat-num {
+        font-size: 1.4rem;
+      }
+      .stat-label {
+        font-size: 0.55rem;
+      }
+
+      /* Contact */
+      .contact-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+      #contact .btn-primary,
+      #contact .btn-ghost {
+        width: 100%;
+        text-align: center;
+      }
+
+      /* Footer */
+      footer {
+        padding: 1.75rem 1.25rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+      .footer-links {
+        gap: 1rem;
+      }
+    }
+
+    /* Very small screens */
+    @media (max-width: 380px) {
+      h1 {
+        font-size: 2.1rem;
+      }
+      .hero {
+        padding: 5rem 1rem 3rem;
+      }
+      .about-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .terminal-body {
+        font-size: 0.65rem;
+      }
     }
   </style>
 </head>
@@ -648,7 +832,7 @@
     <div class="section-label">// contact</div>
     <h2 class="section-title">Get in Touch</h2>
     <p class="section-desc">Found a bug, have a suggestion, or want to contribute? Reach out directly.</p>
-    <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
+    <div class="contact-actions">
       <a href="mailto:admin@ehlo.co.in" class="btn-primary" style="font-size:0.82rem;">admin@ehlo.co.in</a>
       <a href="#scripts" class="btn-ghost">Browse Scripts</a>
     </div>
