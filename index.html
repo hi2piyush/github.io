@@ -550,6 +550,39 @@
         </div>
       </div>
 
+      <!-- Script Card 2 -->
+      <div class="script-card">
+        <div class="card-tag">PowerShell</div>
+        <div class="card-title">Connect-MgGraph-AppSecret</div>
+        <div class="card-desc">
+          Connect to Microsoft Graph as an App using a Client Secret. Authenticates non-interactively using a credential object — ideal for automation and unattended scripts.
+        </div>
+        <div class="card-meta">
+          <div class="card-lang">
+            <div class="lang-dot powershell"></div>
+            PowerShell
+          </div>
+          <button class="script-toggle" onclick="toggleScript(this)">
+            <span class="toggle-icon">&#9654;</span> View Script
+          </button>
+        </div>
+        <div class="script-viewer">
+          <div class="script-viewer-bar">
+            <span class="script-viewer-filename">Connect-MgGraph-AppSecret.ps1</span>
+            <button class="copy-btn" onclick="copyScript(this, 'code-2')">Copy</button>
+          </div>
+          <pre><code id="code-2"><span class="ps-var">$clientID</span> = <span class="ps-string">""</span>
+<span class="ps-var">$Tenantid</span> = <span class="ps-string">""</span>
+<span class="ps-var">$clientsecret</span> = <span class="ps-string">""</span>
+<span class="ps-comment">#Convert Secret to secure string</span>
+<span class="ps-var">$clientsecretpass</span> = <span class="ps-cmdlet">ConvertTo-SecureString</span> -String <span class="ps-var">$clientsecret</span> -AsPlainText -Force
+<span class="ps-comment">#Create a credential object</span>
+<span class="ps-var">$clientSecretCred</span> = <span class="ps-cmdlet">New-Object</span> -TypeName System.Management.Automation.PSCredential -ArgumentList <span class="ps-var">$clientID</span>, <span class="ps-var">$clientsecretpass</span>
+<span class="ps-comment">#Connect to Microsoft Graph</span>
+<span class="ps-cmdlet">connect-MgGraph</span> -TenantId <span class="ps-var">$Tenantid</span> -ClientSecretCredential <span class="ps-var">$clientSecretCred</span></code></pre>
+        </div>
+      </div>
+
       <!-- Placeholder card -->
       <div class="script-card" style="opacity:0.4; cursor: default;">
         <div class="card-tag" style="background:rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: var(--muted);">Coming Soon</div>
