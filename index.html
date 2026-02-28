@@ -251,7 +251,7 @@
       border-radius: 12px;
       padding: 2rem;
       position: relative;
-      overflow: hidden;
+      overflow: visible;
       transition: border-color 0.3s, transform 0.3s;
       color: inherit;
       display: block;
@@ -260,9 +260,12 @@
       content: '';
       position: absolute;
       inset: 0;
+      border-radius: 12px;
       background: linear-gradient(135deg, rgba(0,229,160,0.05), transparent 60%);
       opacity: 0;
       transition: opacity 0.3s;
+      pointer-events: none;
+      overflow: hidden;
     }
     .script-card:hover { border-color: rgba(0,229,160,0.4); transform: translateY(-4px); }
     .script-card:hover::before { opacity: 1; }
@@ -821,10 +824,19 @@
       const icon = btn.querySelector('.toggle-icon');
       const isOpen = viewer.classList.toggle('open');
       icon.innerHTML = isOpen ? '&#9660;' : '&#9654;';
-      btn.childNodes[1].textContent = isOpen ? ' Hide Script' : ' View Script';
+      btn.childNodes[2].textContent = isOpen ? ' Hide Script' : ' View Script';
     }
 
     function copyScript(btn, codeId) {
       const code = document.getElementById(codeId);
       const text = code.innerText;
-      navigator.clipboard.writeT
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
