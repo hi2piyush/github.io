@@ -400,7 +400,7 @@
     .ps-type    { color: #56b6c2; }
 
     /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 3.5rem; }
     @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; gap: 2rem; } }
 
     .about-terminal { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
@@ -524,6 +524,7 @@
       }
       .script-card {
         padding: 1.4rem;
+        overflow: hidden;
       }
       .card-title {
         font-size: 1.05rem;
@@ -540,14 +541,21 @@
       }
 
       /* Script viewer — handle long code lines */
+      .script-viewer {
+        max-width: 100%;
+        overflow: hidden;
+      }
       .script-viewer pre {
         padding: 1rem 0.85rem;
         font-size: 0.68rem;
         max-height: 260px;
+        overflow-x: auto;
+        max-width: 100%;
       }
       .script-viewer code {
         font-size: 0.68rem;
         white-space: pre;
+        display: block;
       }
       .script-viewer-bar {
         padding: 0.5rem 0.75rem;
@@ -751,6 +759,8 @@
 
   <!-- ABOUT -->
   <section id="about">
+    <div class="section-label">// about</div>
+    <h2 class="section-title">Built for IT Pros</h2>
     <div class="about-grid">
       <div class="about-terminal">
         <div class="terminal-bar">
@@ -776,8 +786,6 @@
       </div>
 
       <div class="about-text">
-        <div class="section-label">// about</div>
-        <h2 class="section-title">Built for IT Pros</h2>
         <p>
           ehlo.co.in is a home for open-source scripts and automation tools focused on Microsoft 365, Exchange Online, and enterprise IT administration.
         </p>
