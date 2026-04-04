@@ -743,6 +743,92 @@
         </div>
       </div>
 
+      <!-- Script Card 3 -->
+      <div class="script-card">
+        <div class="card-tag">PowerShell</div>
+        <div class="card-title">Search-UnifiedAuditLog</div>
+        <div class="card-desc">
+          Search and export Microsoft 365 Unified Audit Log records to CSV. Supports filtering by record type, operations, and free text across configurable time intervals.
+        </div>
+        <div class="card-meta">
+          <div class="card-lang">
+            <div class="lang-dot powershell"></div>
+            PowerShell
+          </div>
+          <button class="script-toggle" onclick="toggleScript(this)">
+            <span class="toggle-icon">&#9654;</span> View Script
+          </button>
+        </div>
+        <div class="script-viewer">
+          <div class="script-viewer-bar">
+            <span class="script-viewer-filename">Search-UnifiedAuditLog.ps1</span>
+            <button class="copy-btn" onclick="copyScript(this, 'code-3')">Copy</button>
+          </div>
+          <pre><code id="code-3"><span class="ps-comment">#Modify the values for the following variables to configure the audit log search.</span>
+<span class="ps-var">$logFile</span> = <span class="ps-string">"c:\Temp\AuditLogSearchLog.txt"</span>
+<span class="ps-var">$outputFile</span> = <span class="ps-string">"c:\Temp\AuditLogRecords.csv"</span>
+[DateTime]<span class="ps-var">$start</span> = [DateTime]::UtcNow.AddDays(-<span class="ps-number">1</span>)
+[DateTime]<span class="ps-var">$end</span> = [DateTime]::UtcNow
+<span class="ps-comment">#$record = "ExchangeAdmin"</span>
+<span class="ps-comment">#$Operations = "Remove-DistributionGroup"</span>
+<span class="ps-comment">#$FreeText = "PSDL1"</span>
+<span class="ps-var">$resultSize</span> = <span class="ps-number">5000</span>
+<span class="ps-var">$intervalMinutes</span> = <span class="ps-number">60</span>
+<span class="ps-comment">#Start script</span>
+[DateTime]<span class="ps-var">$currentStart</span> = <span class="ps-var">$start</span>
+[DateTime]<span class="ps-var">$currentEnd</span> = <span class="ps-var">$end</span>
+<span class="ps-cmdlet">Function</span> Write-LogFile ([String]<span class="ps-var">$Message</span>)
+{
+    <span class="ps-var">$final</span> = [DateTime]::Now.ToUniversalTime().ToString(<span class="ps-string">"s"</span>) + <span class="ps-string">":"</span> + <span class="ps-var">$Message</span>
+    <span class="ps-var">$final</span> | <span class="ps-cmdlet">Out-File</span> <span class="ps-var">$logFile</span> -Append
+}
+<span class="ps-cmdlet">Write-LogFile</span> <span class="ps-string">"BEGIN: Retrieving audit records between $($start) and $($end), RecordType=$record, PageSize=$resultSize."</span>
+<span class="ps-cmdlet">Write-Host</span> <span class="ps-string">"Retrieving audit records for the date range between $($start) and $($end), RecordType=$record, ResultsSize=$resultSize"</span>
+<span class="ps-var">$totalCount</span> = <span class="ps-number">0</span>
+while (<span class="ps-var">$true</span>)
+{
+    <span class="ps-var">$currentEnd</span> = <span class="ps-var">$currentStart</span>.AddMinutes(<span class="ps-var">$intervalMinutes</span>)
+    if (<span class="ps-var">$currentEnd</span> -gt <span class="ps-var">$end</span>)
+    {
+        <span class="ps-var">$currentEnd</span> = <span class="ps-var">$end</span>
+    }
+if (<span class="ps-var">$currentStart</span> -eq <span class="ps-var">$currentEnd</span>)
+    {
+        break
+    }
+<span class="ps-var">$sessionID</span> = [Guid]::NewGuid().ToString() + <span class="ps-string">"_"</span> +  <span class="ps-string">"ExtractLogs"</span> + (<span class="ps-cmdlet">Get-Date</span>).ToString(<span class="ps-string">"yyyyMMddHHmmssfff"</span>)
+    <span class="ps-cmdlet">Write-LogFile</span> <span class="ps-string">"INFO: Retrieving audit records for activities performed between $($currentStart) and $($currentEnd)"</span>
+    <span class="ps-cmdlet">Write-Host</span> <span class="ps-string">"Retrieving audit records for activities performed between $($currentStart) and $($currentEnd)"</span>
+    <span class="ps-var">$currentCount</span> = <span class="ps-number">0</span>
+<span class="ps-var">$sw</span> = [Diagnostics.StopWatch]::StartNew()
+    do
+    {
+        <span class="ps-var">$results</span> = <span class="ps-cmdlet">Search-UnifiedAuditLog</span> -StartDate <span class="ps-var">$currentStart</span> -EndDate <span class="ps-var">$currentEnd</span> -RecordType <span class="ps-var">$record</span> -SessionId <span class="ps-var">$sessionID</span> -Operations <span class="ps-var">$Operations</span> -FreeText <span class="ps-var">$FreeText</span> -SessionCommand ReturnLargeSet -ResultSize <span class="ps-var">$resultSize</span>
+if ((<span class="ps-var">$results</span> | <span class="ps-cmdlet">Measure-Object</span>).Count -ne <span class="ps-number">0</span>)
+        {
+            <span class="ps-var">$results</span> | <span class="ps-cmdlet">export-csv</span> -Path <span class="ps-var">$outputFile</span> -Append -NoTypeInformation
+<span class="ps-var">$currentTotal</span> = <span class="ps-var">$results</span>[<span class="ps-number">0</span>].ResultCount
+            <span class="ps-var">$totalCount</span> += <span class="ps-var">$results</span>.Count
+            <span class="ps-var">$currentCount</span> += <span class="ps-var">$results</span>.Count
+            <span class="ps-cmdlet">Write-LogFile</span> <span class="ps-string">"INFO: Retrieved $($currentCount) audit records out of the total $($currentTotal)"</span>
+if (<span class="ps-var">$currentTotal</span> -eq <span class="ps-var">$results</span>[<span class="ps-var">$results</span>.Count - <span class="ps-number">1</span>].ResultIndex)
+            {
+                <span class="ps-var">$message</span> = <span class="ps-string">"INFO: Successfully retrieved $($currentTotal) audit records for the current time range. Moving on!"</span>
+                <span class="ps-cmdlet">Write-LogFile</span> <span class="ps-var">$message</span>
+                <span class="ps-cmdlet">Write-Host</span> <span class="ps-string">"Successfully retrieved $($currentTotal) audit records for the current time range. Moving on to the next interval."</span> -foregroundColor Yellow
+                <span class="ps-string">""</span>
+                break
+            }
+        }
+    }
+    while ((<span class="ps-var">$results</span> | <span class="ps-cmdlet">Measure-Object</span>).Count -ne <span class="ps-number">0</span>)
+<span class="ps-var">$currentStart</span> = <span class="ps-var">$currentEnd</span>
+}
+<span class="ps-cmdlet">Write-LogFile</span> <span class="ps-string">"END: Retrieving audit records between $($start) and $($end), RecordType=$record, PageSize=$resultSize, total count: $totalCount."</span>
+<span class="ps-cmdlet">Write-Host</span> <span class="ps-string">"Script complete! Finished retrieving audit records for the date range between $($start) and $($end). Total count: $totalCount"</span> -foregroundColor Green</code></pre>
+        </div>
+      </div>
+
       <!-- Placeholder card -->
       <div class="script-card" style="opacity:0.4; cursor: default;">
         <div class="card-tag" style="background:rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); color: var(--muted);">Coming Soon</div>
