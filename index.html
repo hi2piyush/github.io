@@ -765,8 +765,9 @@
             <button class="copy-btn" onclick="copyScript(this, 'code-3')">Copy</button>
           </div>
           <pre><code id="code-3"><span class="ps-comment">#Modify the values for the following variables to configure the audit log search.</span>
-<span class="ps-var">$logFile</span> = <span class="ps-string">"c:\Temp\AuditLogSearchLog.txt"</span>
-<span class="ps-var">$outputFile</span> = <span class="ps-string">"c:\Temp\AuditLogRecords.csv"</span>
+<span class="ps-var">$timestamp</span> = <span class="ps-cmdlet">Get-Date</span> -Format <span class="ps-string">"yyyy-MM-dd_HH-mm-ss"</span>
+<span class="ps-var">$logFile</span> = <span class="ps-string">"c:\Temp\AuditLogSearchLog_$timestamp.txt"</span>
+<span class="ps-var">$outputFile</span> = <span class="ps-string">"c:\Temp\AuditLogRecords_$timestamp.csv"</span>
 [DateTime]<span class="ps-var">$start</span> = [DateTime]::UtcNow.AddDays(-<span class="ps-number">1</span>)
 [DateTime]<span class="ps-var">$end</span> = [DateTime]::UtcNow
 <span class="ps-comment">#$record = "ExchangeAdmin"</span>
