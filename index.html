@@ -280,7 +280,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      width: 100%;
       max-width: 900px;
+      container-type: inline-size;
     }
 
     .hero-logo { margin-bottom: 2rem; animation: fadeUp 0.6s var(--ease) both; }
@@ -323,11 +325,16 @@
     }
 
     h1 {
-      font-size: clamp(3rem, 8vw, 6rem);
+      /* Sized from the hero column, not the viewport: Syne ExtraBold is very wide
+         and "Automation" would otherwise spill past the frame. The vw value is a
+         fallback for browsers without container query units. */
+      font-size: clamp(2.2rem, 6.2vw, 4.4rem);
+      font-size: clamp(1.2rem, 7.2cqw, 4.4rem);
       font-weight: 800;
       line-height: 0.94;
       letter-spacing: -0.04em;
       margin-bottom: 1.6rem;
+      max-width: 100%;
       animation: fadeUp 0.7s 0.1s var(--ease) both;
     }
     h1 .accent {
@@ -1020,7 +1027,7 @@
       .hero-logo img { height: 64px; max-width: min(240px, 70vw); }
       .hero-logo { margin-bottom: 1.6rem; }
       .hero-badge { font-size: 0.6rem; padding: 0.38rem 0.85rem; letter-spacing: 0.14em; }
-      h1 { font-size: clamp(2.5rem, 11.5vw, 4rem); line-height: 1; margin-bottom: 1.3rem; }
+      h1 { line-height: 1; margin-bottom: 1.3rem; }
       .hero-sub { font-size: 0.79rem; margin-bottom: 2.2rem; padding: 0 0.25rem; }
 
       .hero-actions { flex-direction: column; width: 100%; max-width: 320px; gap: 0.7rem; }
@@ -1086,7 +1093,6 @@
     }
 
     @media (max-width: 380px) {
-      h1 { font-size: 2.2rem; }
       .hero { padding: 6rem 1rem 3.25rem; }
       .logo-text { font-size: 0.8rem; }
       .nav-logo img { height: 24px; }
@@ -1102,7 +1108,6 @@
     @media (max-height: 500px) and (orientation: landscape) {
       .hero { min-height: auto; padding: 5.5rem 2rem 3rem; }
       .hero-logo img { height: 52px; }
-      h1 { font-size: clamp(2rem, 5vw, 3rem); }
       .hero-sub { margin-bottom: 1.5rem; }
     }
 
